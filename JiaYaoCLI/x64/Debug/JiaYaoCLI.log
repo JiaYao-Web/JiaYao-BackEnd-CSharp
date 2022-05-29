@@ -1,0 +1,7 @@
+﻿  pch.cpp
+  AssemblyInfo.cpp
+  JiaYaoCLI.cpp
+  正在生成代码...
+  .NETFramework,Version=v4.7.2.AssemblyAttributes.cpp
+  AssemblyInfo.obj : 遇到了 MSIL 模块；对 MSIL 禁用了增量链接；正在执行完全链接
+  JiaYaoCLI.vcxproj -> E:\JiaYao\BackEnd\JiaYaoCLI\x64\Debug\JiaYaoCLI.dll

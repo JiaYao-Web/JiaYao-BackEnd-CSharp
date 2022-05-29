@@ -1,0 +1,6 @@
+.vs/
+bin/
+obj/
+*.sln
+appsettings.json
+Models/JiaYaoContext.cs

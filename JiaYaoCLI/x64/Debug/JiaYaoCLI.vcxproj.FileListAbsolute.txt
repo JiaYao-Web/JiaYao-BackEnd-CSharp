@@ -1,0 +1,2 @@
+E:\JiaYao\BackEnd\JiaYaoCLI\x64\Debug\JiaYaoCLI.vcxprojAssemblyReference.cache
+E:\JiaYao\BackEnd\JiaYaoCLI\x64\Debug\JiaYaoCLI.dll
