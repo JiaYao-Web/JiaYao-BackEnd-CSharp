@@ -17,7 +17,7 @@ namespace JiaYao.OSS
         private static string accessKeyId = "LTAI5tJQvjsE3EW6ckDrrJUa";
         private static string accessKeySecret = "GMM9B15OrR1Dnw4MaQ8rxDyXwZY4k7";
         private static string bucketName = "jiayao-net";
-        private static string urlPrefix = "";
+        private static string urlPrefix = "jiayao-net.oss-cn-shanghai.aliyuncs.com/";
 
 
         static AutoResetEvent _event = new AutoResetEvent(false);

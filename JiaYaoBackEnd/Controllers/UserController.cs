@@ -5,7 +5,8 @@ using JiaYao.Request;
 using JiaYao.Services;
 using JiaYao.Authorization;
 using MailService;
-
+using JiaYao.Response;
+using static JiaYao.Controllers.PictureController;
 
 namespace JiaYao.Controllers
 {
@@ -42,7 +43,7 @@ namespace JiaYao.Controllers
             {
                 // 设置Token
                 string token = AESEncrypt.Encrypt(loginRequest.email);
-                MemoryCacheHelper.AddMemoryCache(token, User);
+                MemoryCacheHelper.AddMemoryCache(token, UserService.getUser(loginRequest.email, _context).Result);
                 message.msg = token;
             }
             return message;
@@ -53,6 +54,30 @@ namespace JiaYao.Controllers
         public async Task<ActionResult<Message>> changePassword([FromBody] ChangePasswordRequest changePasswordRequest)
         {
             return await UserService.changePassword(changePasswordRequest, _context);
+        }
+
+        // 获取用户信息
+        [Route("getMyInfo")]
+        [HttpGet]
+        public async Task<ActionResult<MyInfoResponse>> getMyInfo([FromHeader] string myAuthentication)
+        {
+            return await UserService.getMyInfo(myAuthentication, _context);
+        }
+
+        // 修改用户名
+        [Route("changeName")]
+        [HttpPost]
+        public async Task<ActionResult<Message>> changeName([FromBody] ChangeNameRequest changeNameRequest, [FromHeader] string myAuthentication)
+        {
+            return await UserService.changeName(changeNameRequest, myAuthentication, _context);
+        }
+
+        // 修改用户头像
+        [Route("changeImage")]
+        [HttpPost]
+        public async Task<ActionResult<Message>> changeImage([FromForm] FileReportDto fileModel, [FromHeader] string myAuthentication)
+        {
+            return await UserService.changeImage(fileModel, myAuthentication, _context);
         }
     }
 }

@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 using JiaYao.DAL;
 using JiaYao.Models;
 using JiaYao.Request;
+using JiaYao.Authorization;
+using JiaYao.Response;
+using static JiaYao.Controllers.PictureController;
+using JiaYao.OSS;
 
 namespace JiaYao.Services
 {
@@ -28,6 +32,16 @@ namespace JiaYao.Services
             else return new Message { msg = "注册成功!", status = true };
         }
 
+        // 通过邮箱获取当前用户
+        public static async Task<User> getUser(string email, JiaYaoContext context)
+        {
+            if (await UserDAL.FindUserByEmail(email, context))
+            {
+                var user = context.Users.FirstOrDefault(user => user.Email == email);
+                return user;
+            }
+            else return new User();
+        }
 
         // 登录
         public static async Task<Message> login(LoginRequest request, JiaYaoContext context)
@@ -50,13 +64,13 @@ namespace JiaYao.Services
         // 修改密码
         public static async Task<Message> changePassword(ChangePasswordRequest request, JiaYaoContext context)
         {
-            if (await UserDAL.FindUserByEmail(request.email, context))
+            if (await UserDAL.FindUserById(request.userId, context))
             {
-                var user = context.Users.FirstOrDefault(user => user.Email == request.email);
+                var user = context.Users.FirstOrDefault(user => user.Id == request.userId);
                 if (user.Password == request.oldPassword)
                 {
                     user.Password = request.newPassword;
-                    context.SaveChangesAsync();
+                    await context.SaveChangesAsync();
                     return new Message { msg = "修改密码成功", status = true };
                 }
                 else
@@ -67,6 +81,77 @@ namespace JiaYao.Services
             else
             {
                 return new Message { msg = "用户不存在", status = false };
+            }
+        }
+        
+        // 获取登录用户信息
+        public static async Task<MyInfoResponse> getMyInfo(string token, JiaYaoContext context)
+        {
+            User? user = MemoryCacheHelper.Get(token) as User;
+            MyInfoResponse response = new MyInfoResponse();
+            if (user == null)
+            {
+                response.status = false;
+                response.msg = "获取失败";
+            }
+            else
+            {
+                response.status = true;
+                response.msg = "获取成功";
+                response.name = user.Name;
+                response.email = user.Email;
+                response.userId = user.Id;
+                response.image = user.Image;
+            }
+            return response;
+        }
+
+        // 修改用户昵称
+        public static async Task<Message> changeName(ChangeNameRequest request, string token, JiaYaoContext context)
+        {
+            User? user = MemoryCacheHelper.Get(token) as User;
+            if (user == null)
+            {
+                return new Message { msg = "获取失败", status = false };
+            }
+            else
+            {
+                if (await UserDAL.FindUserById(user.Id, context))
+                {
+                    var u = context.Users.FirstOrDefault(u => u.Id == user.Id);
+                    u.Name = request.name;
+                    await context.SaveChangesAsync();
+                    // 这里需要更新Token的内容！
+                    user.Name = request.name;
+                    return new Message { msg = "修改密码成功", status = true };
+                }
+                else
+                    return new Message { msg = "用户不存在", status = false };
+            }
+        }
+
+        // 修改用户头像
+        public static async Task<Message> changeImage(FileReportDto file, string token, JiaYaoContext context)
+        {
+            User? user = MemoryCacheHelper.Get(token) as User;
+            if (user == null)
+            {
+                return new Message { msg = "获取用户失败", status = false };
+            }
+            else
+            {
+                if (await UserDAL.FindUserById(user.Id, context))
+                {
+                    var u = context.Users.FirstOrDefault(u => u.Id == user.Id);
+                    PicUploadResult result = PicUploadBll.AsyncPutObject(file.File.OpenReadStream(), file.File.FileName);
+                    u.Image = result.url;
+                    await context.SaveChangesAsync();
+                    // 这里需要更新Token的内容！
+                    user.Image = result.url;
+                    return new Message { msg = result.url, status = true };
+                }
+                else
+                    return new Message { msg = "用户不存在", status = false };
             }
         }
     }

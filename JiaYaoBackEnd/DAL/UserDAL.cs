@@ -9,13 +9,21 @@ namespace JiaYao.DAL
 {
     public class UserDAL
     {
-        // 判断用户是否存在
+        // 判断用户是否存在 -- 邮箱
         public static Task<bool> FindUserByEmail(string email, JiaYaoContext context)
         {
             var user = context.Users.FirstOrDefault(user => user.Email == email);
             if (user == null) return Task.FromResult(false);
             else return Task.FromResult(true);
 
+        }
+
+        // 判断用户是否存在 -- Id
+        public static Task<bool> FindUserById(int userId, JiaYaoContext context)
+        {
+            var user = context.Users.FirstOrDefault(user => user.Id == userId);
+            if (user == null) return Task.FromResult(false);
+            else return Task.FromResult(true);
         }
 
         // 创建用户
