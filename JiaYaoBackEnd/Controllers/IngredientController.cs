@@ -1,5 +1,6 @@
 ﻿using JiaYao.Models;
 using JiaYao.Request;
+using JiaYao.Response;
 using JiaYao.Services;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -23,10 +24,29 @@ namespace JiaYao.Controllers
         // 上传食材
         [Route("uploadIngredient")]
         [HttpPost]
-        public async Task<ActionResult<Message>> uploadIngredient([FromForm]UploadIngredientRequest request)
+        public async Task<ActionResult<Message>> uploadIngredient([FromForm] UploadIngredientRequest request)
         {
             return await IngredientService.uploadIngredient(request, _context);
         }
 
+        // 获取所有的食材
+        [Route("getAllIngredient")]
+        [HttpGet]
+        public async Task<ActionResult<List<Ingredient>>> getAllIngredient()
+        {
+            return await IngredientService.allIngredient(_context);
+        }
+
+        // 获取食材详情
+        [Route("IngredientDetail")]
+        [HttpPost]
+        public async Task<ActionResult<IngredientDetailReponse>> getIngredientDetail(IngredientDetailRequest request, [FromHeader] string myAuthentication)
+        {
+            return await IngredientService.ingredientDetail(int.Parse(request.ingredientId), myAuthentication, _context);
+        }
+        
+        // 收藏与取消收藏
+
+        // 点赞与取消点赞
     }
 }
