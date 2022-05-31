@@ -63,9 +63,9 @@ namespace JiaYao.Authorization
             _cache.Set(key, value,
             new MemoryCacheEntryOptions()
             {
-                SlidingExpiration = new TimeSpan(0, 0, 100000),
+                SlidingExpiration = new TimeSpan(12,0, 0,0),
                 Priority = CacheItemPriority.NeverRemove,
-                AbsoluteExpiration = DateTime.Now.AddMinutes(1)
+                AbsoluteExpiration = DateTime.Now.AddDays(1)
             });
             return Exists(key);
         }
