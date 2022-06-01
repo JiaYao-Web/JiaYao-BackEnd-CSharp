@@ -61,5 +61,86 @@ namespace JiaYao.Services
             }
             return response;
         }
+        // 收藏食材
+        public static async Task<Message> favoriteIngredient(FavoriteLikeRequest request, string token, JiaYaoContext context)
+        {
+            User? user = MemoryCacheHelper.Get(token) as User;
+            if (user == null)
+            {
+                return new Message { msg = "用户不存在", status = false };
+            }
+            else
+            {
+                int ingredientId = int.Parse(request.id);
+                int userId = user.Id;
+                // 收藏
+                if (request.confirm)
+                {
+                    if(await IngredientDAL.FindFavorite(ingredientId, userId, context))
+                    {
+                        return new Message { msg = "不能重复收藏此食材", status = false };
+                    }
+                    else
+                    {
+                        IngredientDAL.Favorite(ingredientId, userId, context, true);
+                        return new Message { msg = "收藏成功", status = true };
+                    }
+                }
+                // 取消收藏
+                else
+                {
+                    if (!(await IngredientDAL.FindFavorite(ingredientId, userId, context)))
+                    {
+                        return new Message { msg = "不能取消收藏未收藏的食材", status = false };
+                    }
+                    else
+                    {
+                        IngredientDAL.Favorite(ingredientId, userId, context, false);
+                        return new Message { msg = "取消收藏成功", status = true };
+                    }
+                }
+            }
+        }
+
+        // 点赞食材
+        public static async Task<Message> likeIngredient(FavoriteLikeRequest request, string token, JiaYaoContext context)
+        {
+            User? user = MemoryCacheHelper.Get(token) as User;
+            if (user == null)
+            {
+                return new Message { msg = "用户不存在", status = false };
+            }
+            else
+            {
+                int ingredientId = int.Parse(request.id);
+                int userId = user.Id;
+                // 点赞
+                if (request.confirm)
+                {
+                    if (await IngredientDAL.FindLike(ingredientId, userId, context))
+                    {
+                        return new Message { msg = "不能重复点赞此商品", status = false };
+                    }
+                    else
+                    {
+                        IngredientDAL.Like(ingredientId, userId, context, true);
+                        return new Message { msg = "点赞成功", status = true };
+                    }
+                }
+                // 取消点赞
+                else
+                {
+                    if (!(await IngredientDAL.FindLike(ingredientId, userId, context)))
+                    {
+                        return new Message { msg = "不能取消点赞未点赞的商品", status = false };
+                    }
+                    else
+                    {
+                        IngredientDAL.Like(ingredientId, userId, context, false);
+                        return new Message { msg = "取消点赞成功", status = true };
+                    }
+                }
+            }
+        }
     }
 }

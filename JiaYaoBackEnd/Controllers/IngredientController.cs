@@ -46,7 +46,19 @@ namespace JiaYao.Controllers
         }
         
         // 收藏与取消收藏
+        [Route("favoriteIngredient")]
+        [HttpPost]
+        public async Task<ActionResult<Message>> favoriteIngredient([FromBody]FavoriteLikeRequest request, [FromHeader] string myAuthentication)
+        {
+            return await IngredientService.favoriteIngredient(request, myAuthentication, _context);
+        }
 
         // 点赞与取消点赞
+        [Route("likeIngredient")]
+        [HttpPost]
+        public async Task<ActionResult<Message>> likeIngredient([FromBody] FavoriteLikeRequest request, [FromHeader] string myAuthentication)
+        {
+            return await IngredientService.likeIngredient(request, myAuthentication, _context);
+        }
     }
 }
