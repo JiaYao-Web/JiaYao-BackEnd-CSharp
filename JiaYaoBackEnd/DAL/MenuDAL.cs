@@ -34,7 +34,7 @@ namespace JiaYao.DAL
         // 查询收藏
         public static Task<bool> FindFavorite(int menuId,int userId,JiaYaoContext context)
         {
-            var result = context.MenuFavorites.Select(a => a.MenuId == menuId && a.UserId == userId).ToList();
+            var result = context.MenuFavorites.Where(a => a.MenuId == menuId && a.UserId == userId).ToList();
             return Task.FromResult(result.Count == 1);
         }
         // 收藏&取消收藏
@@ -53,7 +53,7 @@ namespace JiaYao.DAL
             // 取消收藏
             else
             {
-                MenuFavorite menuFavorite = new MenuFavorite { MenuId = menuId, UserId = userId };
+                var menuFavorite = context.MenuFavorites.FirstOrDefault(a => a.MenuId == menuId && a.UserId == userId);
                 context.Remove(menuFavorite);
                 context.SaveChanges();
             }
@@ -61,7 +61,7 @@ namespace JiaYao.DAL
         // 查询点赞
         public static Task<bool> FindLike(int menuId, int userId, JiaYaoContext context)
         {
-            var result = context.MenuLikes.Select(a => a.MenuId == menuId && a.UserId == userId).ToList();
+            var result = context.MenuLikes.Where(a => a.MenuId == menuId && a.UserId == userId).ToList();
             return Task.FromResult(result.Count == 1);
         }
 
@@ -81,7 +81,7 @@ namespace JiaYao.DAL
             // 取消点赞
             else
             {
-                MenuLike menuLike = new MenuLike { MenuId = menuId, UserId = userId };
+                var menuLike = context.MenuLikes.FirstOrDefault(a => a.MenuId == menuId && a.UserId == userId);
                 context.Remove(menuLike);
                 context.SaveChanges();
             }

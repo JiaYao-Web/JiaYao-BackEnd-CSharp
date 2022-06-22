@@ -61,11 +61,11 @@ namespace JiaYao.Services
                     response.content = menu.Content;
                     response.introduction = menu.Introduction;
                     //点赞与收藏信息
-                    response.favoriteNumber = context.MenuFavorites.Select(a => a.MenuId == id).ToList().Count();
-                    response.likeNumber = context.MenuLikes.Select(a => a.MenuId == id).ToList().Count();
+                    response.favoriteNumber = context.MenuFavorites.Where(a => a.MenuId == id).ToList().Count();
+                    response.likeNumber = context.MenuLikes.Where(a => a.MenuId == id).ToList().Count();
                     //个人是否点赞与收藏
-                    response.ifFavorite = context.MenuFavorites.Select(a => (a.MenuId == id && a.UserId == user.Id)).ToList().Count == 1;
-                    response.ifLike = context.MenuLikes.Select(a => (a.MenuId == id && a.UserId == user.Id)).ToList().Count == 1;
+                    response.ifFavorite = context.MenuFavorites.Where(a => (a.MenuId == id && a.UserId == user.Id)).ToList().Count==1;
+                    response.ifLike = context.MenuLikes.Where(a => (a.MenuId == id && a.UserId == user.Id)).ToList().Count==1;
                 }
             }
             return response;
@@ -127,7 +127,7 @@ namespace JiaYao.Services
                 {
                     if (await MenuDAL.FindLike(menuId, userId, context))
                     {
-                        return new Message { msg = "不能重复点赞此商品", status = false };
+                        return new Message { msg = "不能重复点赞此菜谱", status = false };
                     }
                     else
                     {
@@ -140,7 +140,7 @@ namespace JiaYao.Services
                 {
                     if (!(await MenuDAL.FindLike(menuId, userId, context)))
                     {
-                        return new Message { msg = "不能取消点赞未点赞的商品", status = false };
+                        return new Message { msg = "不能取消点赞未点赞的菜谱", status = false };
                     }
                     else
                     {

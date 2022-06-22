@@ -50,11 +50,11 @@ namespace JiaYao.Services
                     response.image = ingredient.Url;
                     response.introduction = ingredient.Introduction;
                     // 点赞与收藏信息
-                    response.favoriteNumber = context.IngredientFavorites.Select(a => a.IngredientId == id).ToList().Count();
-                    response.likeNumber = context.IngredientLikes.Select(a => a.IngredientId == id).ToList().Count();
+                    response.favoriteNumber = context.IngredientFavorites.Where(a => a.IngredientId == id).ToList().Count;
+                    response.likeNumber = context.IngredientLikes.Where(a => (a.IngredientId == id)).ToList().Count;
                     // 个人是否点赞与收藏
-                    response.ifFavorite = context.IngredientFavorites.Select(a => (a.IngredientId == id && (a.UserId == user.Id))).ToList().Count == 1;
-                    response.ifLike = context.IngredientLikes.Select(a => (a.IngredientId == id && (a.UserId == user.Id))).ToList().Count == 1;
+                    response.ifFavorite = context.IngredientFavorites.Where(a => ((a.IngredientId == id) && (a.UserId == user.Id))).ToList().Count==1;
+                    response.ifLike = context.IngredientLikes.Where(a => ((a.IngredientId == id) && (a.UserId == user.Id))).ToList().Count==1;
                     // 相关的菜单
                     response.menus = context.Menus.Where(a => a.Content.Contains(ingredient.Name)).ToList();
                 }
@@ -119,11 +119,11 @@ namespace JiaYao.Services
                 {
                     if (await IngredientDAL.FindLike(ingredientId, userId, context))
                     {
-                        return new Message { msg = "不能重复点赞此商品", status = false };
+                        return new Message { msg = "不能重复点赞此食材", status = false };
                     }
                     else
                     {
-                        IngredientDAL.Like(ingredientId, userId, context, true);
+                        await IngredientDAL.Like(ingredientId, userId, context, true);
                         return new Message { msg = "点赞成功", status = true };
                     }
                 }
@@ -132,11 +132,11 @@ namespace JiaYao.Services
                 {
                     if (!(await IngredientDAL.FindLike(ingredientId, userId, context)))
                     {
-                        return new Message { msg = "不能取消点赞未点赞的商品", status = false };
+                        return new Message { msg = "不能取消点赞未点赞的食材", status = false };
                     }
                     else
                     {
-                        IngredientDAL.Like(ingredientId, userId, context, false);
+                        await IngredientDAL.Like(ingredientId, userId, context, false);
                         return new Message { msg = "取消点赞成功", status = true };
                     }
                 }
