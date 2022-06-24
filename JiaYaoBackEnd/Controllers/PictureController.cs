@@ -19,7 +19,7 @@ namespace JiaYao.Controllers
         public async Task<ActionResult<PicUploadResult>> UploadAsync([FromForm] FileReportDto fileModel)
         {
             //需要存储文件
-            PicUploadResult result = PicUploadBll.AsyncPutObject(fileModel.File.OpenReadStream(), fileModel.File.FileName);
+            PicUploadResult result = PicUploadBll.AsyncPutObject(fileModel.File.OpenReadStream(), fileModel.File.FileName,3);
             if (result.status == true)
             {
                 return Ok(result);

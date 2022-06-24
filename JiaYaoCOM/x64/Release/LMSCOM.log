@@ -1,0 +1,61 @@
+﻿  64 bit Processing .\LMSCOM.idl
+  LMSCOM.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\oaidl.idl
+  oaidl.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\objidl.idl
+  objidl.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\unknwn.idl
+  unknwn.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\shared\wtypes.idl
+  wtypes.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\shared\wtypesbase.idl
+  wtypesbase.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\shared\basetsd.h
+  basetsd.h
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\shared\guiddef.h
+  guiddef.h
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\ocidl.idl
+  ocidl.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\oleidl.idl
+  oleidl.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\servprov.idl
+  servprov.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\urlmon.idl
+  urlmon.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\msxml.idl
+  msxml.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\shobjidl.idl
+  shobjidl.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\docobj.idl
+  docobj.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\shtypes.idl
+  shtypes.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\comcat.idl
+  comcat.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\propidl.idl
+  propidl.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\prsht.idl
+  prsht.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\propsys.idl
+  propsys.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\StructuredQueryCondition.idl
+  StructuredQueryCondition.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\ObjectArray.idl
+  ObjectArray.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\shobjidl_core.idl
+  shobjidl_core.idl
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\oaidl.acf
+  oaidl.acf
+  64 bit Processing D:\Windows Kits\10\Include\10.0.19041.0\um\ocidl.acf
+  ocidl.acf
+  pch.cpp
+  dllmain.cpp
+  LMSCOM.cpp
+  Pic.cpp
+  正在生成代码...
+  LMSCOM_i.c
+    正在创建库 D:\WorkSpace-Study\LibraryMangementSystem\x64\Release\LMSCOM.lib 和对象 D:\WorkSpace-Study\LibraryMangementSystem\x64\Release\LMSCOM.exp
+  LMSCOM.vcxproj -> D:\WorkSpace-Study\LibraryMangementSystem\x64\Release\LMSCOM.dll
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(2289,5): warning MSB3075: 命令“regsvr32 /s "D:\WorkSpace-Study\LibraryMangementSystem\x64\Release\LMSCOM.dll"”已退出，代码为 5。请验证您是否拥有运行此命令的足够权限。
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(2289,5): warning MSB4181: “Exec”任务返回了 false，但未记录错误。
+D:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\MSBuild\Microsoft\VC\v160\Microsoft.CppCommon.targets(2301,5): error MSB8011: 未能注册输出。请尝试启用“逐用户重定向”，或者使用提升的权限从命令提示符处注册该组件。

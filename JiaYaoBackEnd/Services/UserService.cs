@@ -143,7 +143,7 @@ namespace JiaYao.Services
                 if (await UserDAL.FindUserById(user.Id, context))
                 {
                     var u = context.Users.FirstOrDefault(u => u.Id == user.Id);
-                    PicUploadResult result = PicUploadBll.AsyncPutObject(file.File.OpenReadStream(), file.File.FileName);
+                    PicUploadResult result = PicUploadBll.AsyncPutObject(file.File.OpenReadStream(), file.File.FileName, 0);
                     u.Image = result.url;
                     await context.SaveChangesAsync();
                     // 这里需要更新Token的内容！

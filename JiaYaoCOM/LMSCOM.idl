@@ -1,0 +1,37 @@
+﻿// LMSCOM.idl: LMSCOM 的 IDL 源
+//
+
+// 此文件将由 MIDL 工具处理以
+// 生成类型库(LMSCOM.tlb)和封送处理代码。
+
+import "oaidl.idl";
+import "ocidl.idl";
+
+[
+	object,
+	uuid(17d537ee-660f-4cb0-a4a3-61d5fcebba02),
+	dual,
+	nonextensible,
+	pointer_default(unique)
+]
+interface IPic : IDispatch
+{
+	[id(1)] HRESULT Number([in]int t, [out, retval] int* __result);
+};
+[
+	uuid(7aaac6ce-eb62-407e-93fd-d5c073bd7fc0),
+	version(1.0),
+]
+library LMSCOMLib
+{
+	importlib("stdole2.tlb");
+	[
+		uuid(8fd0a715-45ca-4956-9496-f56545be4388)
+	]
+	coclass Pic
+	{
+		[default] interface IPic;
+	};
+};
+
+import "shobjidl.idl";

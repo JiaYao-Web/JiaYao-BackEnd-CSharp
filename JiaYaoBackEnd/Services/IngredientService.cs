@@ -17,7 +17,7 @@ namespace JiaYao.Services
         public static async Task<Message> uploadIngredient(UploadIngredientRequest request, JiaYaoContext context)
         {
             // 上传图片
-            PicUploadResult result = PicUploadBll.AsyncPutObject(request.file.OpenReadStream(), request.file.FileName);
+            PicUploadResult result = PicUploadBll.AsyncPutObject(request.file.OpenReadStream(), request.file.FileName,2);
             if (!result.status) return new Message { msg = "上传失败", status = false };
             Ingredient ingredient = new Ingredient();
             ingredient.Name = request.name;
